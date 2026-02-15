@@ -6,6 +6,7 @@ import type { User } from './types'
 const initialState: AuthState = {
   currentUser: JSON.parse(localStorage.getItem("currentUser") || "null"),
   users: JSON.parse(localStorage.getItem("users") || "[]"),
+  error : null
 }
 
 const authSlice = createSlice({
@@ -23,7 +24,7 @@ const authSlice = createSlice({
       )
 
       if (exists) {
-        alert('User Already Exists')
+        alert('email already registered')
         return
       }
 
@@ -39,7 +40,7 @@ const authSlice = createSlice({
       const user = state.users.find((user: User) => user.email === action.payload.email && user.password === action.payload.password)
 
       if (!user) {
-        alert('Email Or Password Invalid')
+        // state.error = 'Email Or Password Invalid'
         return
       }
 

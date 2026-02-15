@@ -11,4 +11,5 @@ export interface User {
 export interface AuthState {
   currentUser: User | null
   users: User[]
+  error: string | null
 }

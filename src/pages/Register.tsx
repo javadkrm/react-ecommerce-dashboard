@@ -61,10 +61,10 @@ export default function Register() {
   }
 
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">Register</h2>
-      {error && <p>{error}</p>}
-      <form onSubmit={submitHandler} className="w-96 p-6 border rounded-lg shadow">
+      {error && <p style={{color: 'red'}}>{error}</p>}
+      <form onSubmit={submitHandler} className="d-flex flex-col">
         <label htmlFor="nameInput">Name</label>
         <input
           type="text"
