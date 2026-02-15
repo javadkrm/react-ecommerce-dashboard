@@ -16,21 +16,22 @@ export default function CartPage() {
     const totalPrice = () => {
         const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
         return (
-            <div style={{ marginBottom: '20px', padding: '10px', backgroundColor: '#f0f0f0', borderRadius: '5px', textAlign: 'center' }}>
+            <div style={{ marginBottom: '20px', padding: '10px', borderRadius: '5px', textAlign: 'center' }}>
                 <p style={{ margin: '0', fontSize: '18px', fontWeight: 'bold', color: '#27ae60' }}>
                     Total Price: ${total.toFixed(2)}
                 </p>
             </div>
         )
     }
-    return (
 
+    return (
+        
         <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
-            {user ? <p style={{ fontSize: '20px', color: '#a49f9f' }}>Welcome {<span style={{ color: 'blue', fontWeight: 'bold' }}>{user.name.toUpperCase()}</span>}</p>
+            {user ? <p style={{ fontSize: '20px', color: '#a49f9f',marginBottom: '20px' }}>Welcome {<span style={{ color: '#5a7d9f', fontWeight: 'bold' }}>{user.name.toUpperCase()}</span>}</p>
                 :
-                <p style={{ color: 'orange', fontWeight: 'bolder' }}>Please Login First</p>
+                <p style={{ color: 'orange', fontWeight: 'bolder',marginBottom: '20px' }}>Please Login First</p>
             }
-            <h2 style={{ color: '#2f75bb', marginBottom: '20px' }}>Your Cart</h2>
+            {/* <h2 style={{ color: '#2f75bb', marginBottom: '20px' }}>Your Cart</h2> */}
             {user && totalPrice()}
             {cartItems.length === 0
                 ?

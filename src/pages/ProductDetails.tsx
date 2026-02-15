@@ -42,10 +42,9 @@ export default function ProductDetails() {
   return (
     <div style={{
       padding: '32px 24px',
-      // maxWidth: '1400px',
+      maxWidth: '1400px',
       margin: '0 auto'
     }}>
-      {/* Header */}
       <div style={{
         marginBottom: '40px'
       }}>
@@ -65,8 +64,6 @@ export default function ProductDetails() {
           Browse our collection of premium products
         </p>
       </div>
-
-      {/* Responsive Grid */}
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',

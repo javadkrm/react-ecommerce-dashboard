@@ -77,15 +77,11 @@ export default function Navbar() {
           Products
         </Link>
       </div>
-
-      {/* Right Section - Cart & User */}
       <div style={{
         display: 'flex',
         alignItems: 'center',
         gap: '30px'
       }}>
-
-        {/* Cart Link */}
         <Link 
           to="/cart" 
           style={{
@@ -136,7 +132,6 @@ export default function Navbar() {
 
         {user ? (
           <>
-            {/* User Info */}
             <div style={{
               display: 'flex',
               alignItems: 'center',
@@ -151,8 +146,6 @@ export default function Navbar() {
               }}>
                 👤 {user.name}
               </span>
-
-              {/* Logout Button */}
               <button
                 onClick={handleLogout}
                 style={{

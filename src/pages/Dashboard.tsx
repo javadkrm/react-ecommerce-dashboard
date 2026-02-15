@@ -26,7 +26,7 @@ export default function Dashboard() {
   return (
 
     <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
-      {user && <p style={{ fontSize: '20px', color: '#a49f9f' }}>Welcome {<span style={{color: 'blue', fontWeight: 'bold'}}>{user.name.toUpperCase()}</span>}</p>}
+      {user && <p style={{ fontSize: '20px', color: '#a49f9f' }}>Welcome {<span style={{color: '#2C3E50', fontWeight: 'bold'}}>{user.name.toUpperCase()}</span>}</p>}
       <h2 style={{ color: '#2f75bb', marginBottom: '20px' }}>Your Cart</h2>
       {totalPrice()}
       {cartItems.length === 0
