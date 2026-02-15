@@ -41,7 +41,7 @@ export default function ProductDetails() {
 
   return (
     <div style={{
-      padding: '32px 24px',
+      padding: '32px 16px',
       maxWidth: '1400px',
       margin: '0 auto'
     }}>
@@ -66,8 +66,10 @@ export default function ProductDetails() {
       </div>
       <div style={{
         display: 'grid',
-        gap: '24px',
-        gridTemplateColumns: 'repeat(3, 1fr)'
+        gap: '16px',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+        gridAutoRows: '1fr',
+        alignItems: 'stretch'
       }}>
 
         {items.map(product => (
