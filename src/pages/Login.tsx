@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 export default function Login() {
 
-  const user = useAppSelector((state) => state.auth.currentUser)
+  const {currentUser, error} = useAppSelector((state) => state.auth)
 
   const navigate = useNavigate()
 
@@ -15,13 +15,9 @@ export default function Login() {
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (email && password) {
-      
-      dispatch(login({ email, password }))
-      navigate('/dashboard')
-    } else {
-      alert('inputs must have value')
-    }
+    dispatch(login({ email, password }))
+    navigate('/dashboard')
+ 
   }
   return (
     <div style={{
@@ -58,7 +54,7 @@ export default function Login() {
             Sign in to your account
           </p>
         </div>
-        {user && (
+        {currentUser && (
           <div style={{
             backgroundColor: '#d4edda',
             color: '#155724',
@@ -68,9 +64,10 @@ export default function Login() {
             fontSize: '14px',
             fontWeight: '500'
           }}>
-            ✓ Welcome back, {user.email}!
+            ✓ Welcome back, {currentUser.email}!
           </div>
         )}
+        {!currentUser && <p style={{color: 'red', textAlign: 'center', fontWeight: 'bold', marginBottom: '5px'}}>{error}</p>}
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <div>
             <label style={{

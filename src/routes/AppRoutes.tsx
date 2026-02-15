@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import {  Routes, Route } from "react-router-dom"
 import Login from "@/pages/Login"
 import PrivateRoute from "./PrivateRoute"
 import Dashboard from "@/pages/Dashboard"

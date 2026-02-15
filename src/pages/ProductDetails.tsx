@@ -66,16 +66,10 @@ export default function ProductDetails() {
       </div>
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-        gap: '24px','media (max-width: 768px)': {
-          gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-          gap: '16px'
-        },
-        '@media (max-width: 480px)': {
-          gridTemplateColumns: '1fr',
-          gap: '16px'
-        }
+        gap: '24px',
+        gridTemplateColumns: 'repeat(3, 1fr)'
       }}>
+
         {items.map(product => (
           <ProductCard key={product.id} product={product} />
         ))}

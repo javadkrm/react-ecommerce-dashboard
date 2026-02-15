@@ -48,7 +48,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             e.currentTarget.style.boxShadow = '0 2px 12px rgba(0,0,0,0.08)';
             e.currentTarget.style.transform = 'translateY(0)';
         }}>
-            {/* Image Container */}
             <div style={{
                 width: '100%',
                 height: '200px',
@@ -69,8 +68,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                     }}
                 />
             </div>
-
-            {/* Category Badge */}
             <div style={{ padding: '12px 16px', paddingBottom: '0' }}>
                 <span style={{
                     display: 'inline-block',
@@ -87,14 +84,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 </span>
             </div>
 
-            {/* Content Container */}
             <div style={{
                 padding: '16px',
                 flex: '1',
                 display: 'flex',
                 flexDirection: 'column'
             }}>
-                {/* Title */}
                 <h3 style={{
                     margin: '0 0 10px 0',
                     fontSize: '15px',
@@ -110,7 +105,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                     {product.title}
                 </h3>
 
-                {/* Description */}
                 <p style={{
                     margin: '8px 0 12px 0',
                     fontSize: '13px',
@@ -125,7 +119,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                     {product.description}
                 </p>
 
-                {/* Price */}
                 <div style={{
                     marginTop: 'auto',
                     paddingTop: '12px',

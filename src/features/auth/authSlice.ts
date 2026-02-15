@@ -40,7 +40,7 @@ const authSlice = createSlice({
       const user = state.users.find((user: User) => user.email === action.payload.email && user.password === action.payload.password)
 
       if (!user) {
-        // state.error = 'Email Or Password Invalid'
+        state.error = 'Email Or Password Invalid'
         return
       }
 
