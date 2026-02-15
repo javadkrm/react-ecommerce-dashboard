@@ -4,32 +4,38 @@ import type { User } from './types'
 
 
 const initialState: AuthState = {
-  currentUser: null,
+  currentUser: JSON.parse(localStorage.getItem("currentUser") || "null"),
   users: JSON.parse(localStorage.getItem("users") || "[]"),
 }
-
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
     logout: state => {
-      state.currentUser = null
+      state.currentUser = null,
+        localStorage.removeItem("currentUser")
     },
 
-    register : (state, action: PayloadAction<User>) => {
-      const isExist = state.users.find((user: User) => user.id === action.payload.id)
-      if(isExist) {
-        alert("User already exists")
+    register: (state, action: PayloadAction<User>) => {
+      const exists = state.users.find(
+        user => user.email === action.payload.email
+      )
+
+      if (exists) {
+        alert('User Already Exists')
         return
       }
 
       state.users.push(action.payload)
       state.currentUser = action.payload
-      localStorage.setItem('users', JSON.stringify(state.users))
+
+      localStorage.setItem("users", JSON.stringify(state.users))
+      localStorage.setItem("currentUser", JSON.stringify(action.payload))
+
     },
 
-    login : (state, action: PayloadAction<{email: string, password: string}>) => {
+    login: (state, action: PayloadAction<{ email: string, password: string }>) => {
       const user = state.users.find((user: User) => user.email === action.payload.email && user.password === action.payload.password)
 
       if (!user) {
@@ -38,11 +44,9 @@ const authSlice = createSlice({
       }
 
       state.currentUser = user
+      localStorage.setItem("currentUser", JSON.stringify(user))
     },
 
-    logut: (state) => {
-      state.currentUser = null
-    }
   },
 })
 

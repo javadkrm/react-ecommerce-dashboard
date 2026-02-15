@@ -1,11 +1,11 @@
-export type User = {
-    id: string
-    name: string
-    email: string
-    password: string
-    role: 'admin' | 'user'
-    token: string
+export interface User {
+  id: number
+  name: string
+  email: string
+  password: string
+  role: "user" | "admin"
 }
+
 
 
 export interface AuthState {

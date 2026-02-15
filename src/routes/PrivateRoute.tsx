@@ -8,7 +8,7 @@ type Props = {
 
 export default function PrivateRoute({ children }: Props) {
   
-  const user = useAppSelector((state) => state.auth.user)
+  const user = useAppSelector((state) => state.auth.currentUser)
 
   if (!user) {
     return <Navigate to="/login" replace />

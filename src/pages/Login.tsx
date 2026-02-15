@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 export default function Login() {
 
-  const { isLoading, error, user } = useAppSelector((state) => state.auth)
+  const user = useAppSelector((state) => state.auth.currentUser)
 
   const navigate = useNavigate()
 
@@ -17,8 +17,7 @@ export default function Login() {
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault()
     dispatch(login({ email, password }))
-    .unwrap()
-    .then(() => {navigate('/dashboard')})
+    navigate('/dashboard')
   }
   return (
     <div style={{ padding: '20px' }}>
@@ -43,11 +42,11 @@ export default function Login() {
 
         <br /><br />
 
-        <button disabled={isLoading}>
-          {isLoading ? "Logging in..." : "Login"}
+        <button>
+          Login
         </button>
       </form>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {/* {error && <p style={{ color: "red" }}>{error}</p>} */}
     </div>
   )
 }
