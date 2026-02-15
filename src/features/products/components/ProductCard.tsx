@@ -3,6 +3,7 @@ import type { Product } from '../types'
 import { addToCart } from '@/features/cart/cartSlice'
 import { useAppDispatch, useAppSelector } from '@/app/hook'
 import type { CartItem } from '@/features/cart/types'
+import { useNavigate } from 'react-router-dom'
 
 interface ProductCardProps {
     product: Product
@@ -11,14 +12,18 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
     const user = useAppSelector(state => state.auth.currentUser)
 
     const handleAddToCart = () => {
-        if (user?.id) {
+        if (user) {
             dispatch(addToCart({ userId: user.id, product: product as CartItem }))
+             alert("Added to cart ✅")
+
         } else {
             alert("Please login to add items to your cart.")
+            navigate('/login')
         }
     }
 
@@ -31,7 +36,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             overflow: 'hidden',
             boxShadow: '0 2px 12px rgba(0,0,0,0.08)',
             transition: 'all 0.3s ease',
-            backgroundColor: '#ffffff',
+            backgroundColor: '#2C3E50',
             height: '100%',
             cursor: 'pointer'
         }}
@@ -94,7 +99,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                     margin: '0 0 10px 0',
                     fontSize: '15px',
                     fontWeight: '700',
-                    color: '#2c3e50',
+                    color: '#ffffff',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                     display: '-webkit-box',

@@ -42,7 +42,7 @@ export default function ProductDetails() {
   return (
     <div style={{
       padding: '32px 24px',
-      maxWidth: '1400px',
+      // maxWidth: '1400px',
       margin: '0 auto'
     }}>
       {/* Header */}
@@ -70,7 +70,7 @@ export default function ProductDetails() {
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-        gap: '24px','@media (max-width: 768px)': {
+        gap: '24px','media (max-width: 768px)': {
           gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
           gap: '16px'
         },
