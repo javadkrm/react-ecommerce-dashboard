@@ -5,20 +5,31 @@ import { useNavigate } from 'react-router-dom'
 
 export default function Login() {
 
-  const {currentUser, error} = useAppSelector((state) => state.auth)
+  const { currentUser } = useAppSelector((state) => state.auth)
 
   const navigate = useNavigate()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState<string>('')
+
   const dispatch = useAppDispatch()
+
+  const clearInputs = () => {
+    setEmail('')
+    setPassword('')
+  }
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch(login({ email, password }))
-    navigate('/dashboard')
- 
+    if (currentUser) {
+      dispatch(login({ email, password }))
+      navigate('/dashboard')
+    }
+    setError('Email Or Password Invalid')
+    clearInputs()
   }
+  
   return (
     <div style={{
       minHeight: '100vh',
@@ -67,7 +78,7 @@ export default function Login() {
             ✓ Welcome back, {currentUser.email}!
           </div>
         )}
-        {!currentUser && <p style={{color: 'red', textAlign: 'center', fontWeight: 'bold', marginBottom: '5px'}}>{error}</p>}
+        {!currentUser && <p style={{ color: 'red', textAlign: 'center', fontWeight: 'bold', marginBottom: '5px' }}>{error}</p>}
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <div>
             <label style={{

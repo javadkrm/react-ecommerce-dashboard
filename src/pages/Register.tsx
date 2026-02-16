@@ -201,8 +201,6 @@ export default function Register() {
               }}
             />
           </div>
-
-          {/* Password Input */}
           <div>
             <label htmlFor="passwordInput" style={{
               display: 'block',
@@ -211,7 +209,8 @@ export default function Register() {
               color: '#2c3e50',
               marginBottom: '8px',
               textTransform: 'uppercase',
-              letterSpacing: '0.5px'
+              letterSpacing: '0.5px',
+
             }}>
               Password
             </label>
@@ -230,7 +229,9 @@ export default function Register() {
                 borderRadius: '8px',
                 boxSizing: 'border-box',
                 transition: 'all 0.2s',
-                fontFamily: 'inherit'
+                fontFamily: 'inherit',
+                color: 'black'
+
               }}
               onFocus={(e) => {
                 e.currentTarget.style.borderColor = '#667eea';
