@@ -1,13 +1,22 @@
 import { useAppDispatch, useAppSelector } from '@/app/hook'
 import ProductCard from '@/features/products/components/ProductCard'
 import { fetchProducts } from '@/features/products/productsSlice'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function ProductDetails() {
 
   const dispatch = useAppDispatch()
 
   const { items, error, isLoading } = useAppSelector(state => state.products)
+
+  const itemsCategories = ['all', ...new Set(items.map(item => item.category))]
+
+  const [selecetedCategory, setSelecetedCategory] = useState<string>('all')
+
+  const filteredItems = selecetedCategory === 'all'
+    ? items
+    : items.filter(item => item.category === selecetedCategory)
+
 
   useEffect(() => {
     dispatch(fetchProducts())
@@ -64,6 +73,20 @@ export default function ProductDetails() {
           Browse our collection of premium products
         </p>
       </div>
+      <div
+        style={{ width: '100%', display: 'flex', margin: '30px 0', justifyContent: 'center' }}
+      >
+        {itemsCategories.map((btnCategory, index) => (
+          <button
+            key={index}
+            style={{ margin: '0 5px' }}
+            onClick={() => {
+              setSelecetedCategory(btnCategory)
+            }}
+          >{btnCategory}</button>
+        ))}
+
+      </div>
       <div style={{
         display: 'grid',
         gap: '16px',
@@ -72,9 +95,10 @@ export default function ProductDetails() {
         alignItems: 'stretch'
       }}>
 
-        {items.map(product => (
+        {filteredItems.map(product => (
           <ProductCard key={product.id} product={product} />
         ))}
+
       </div>
     </div>
   )
