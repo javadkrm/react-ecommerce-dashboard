@@ -17,7 +17,7 @@ export default function CartPage() {
         const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
         return (
             <div style={{ marginBottom: '20px', padding: '10px', borderRadius: '5px', textAlign: 'center' }}>
-                <p style={{ margin: '0', fontSize: '18px', fontWeight: 'bold', color: '#27ae60' }}>
+                <p style={{ margin: '0', fontSize: '20px', fontWeight: 'bold', color: '#fff' }}>
                     Total Price: ${total.toFixed(2)}
                 </p>
             </div>

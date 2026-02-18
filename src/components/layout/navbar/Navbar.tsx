@@ -76,6 +76,28 @@ export default function Navbar() {
         >
           Products
         </Link>
+        <Link 
+          to="/dashboard" 
+          style={{
+            fontSize: '16px',
+            fontWeight: '600',
+            color: '#ecf0f1',
+            textDecoration: 'none',
+            transition: 'color 0.2s',
+            paddingBottom: '2px',
+            borderBottom: '2px solid transparent'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.color = '#3498db';
+            e.currentTarget.style.borderBottomColor = '#3498db';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.color = '#ecf0f1';
+            e.currentTarget.style.borderBottomColor = 'transparent';
+          }}
+        >
+          Dashboard
+        </Link>
       </div>
       <div style={{
         display: 'flex',

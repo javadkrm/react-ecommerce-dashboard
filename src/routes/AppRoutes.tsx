@@ -6,6 +6,7 @@ import Register from "@/pages/Register"
 import ProductDetails from "@/pages/ProductDetails"
 import CartPage from "@/pages/CartPage"
 import Home from "@/pages/Home"
+import DashboardPrivateRoute from "./DashboardPrivateRoute"
 
 export default function AppRoutes() {
   return (
@@ -15,7 +16,7 @@ export default function AppRoutes() {
         <Route path="/register" element={<Register />} />
         <Route path="/products" element={<ProductDetails />} />
         <Route path="/cart" element={<PrivateRoute><CartPage/></PrivateRoute>} />
-        <Route path="/dashboard" element={<PrivateRoute><Dashboard/></PrivateRoute>} />
+        <Route path="/dashboard" element={<DashboardPrivateRoute><Dashboard/></DashboardPrivateRoute>} />
       </Routes>
   )
 }

@@ -57,7 +57,7 @@ export default function Register() {
       role: 'user',
     }))
 
-    navigate('/dashboard')
+    navigate('/cart')
   }
 
   return (
