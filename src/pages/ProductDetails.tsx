@@ -2,6 +2,7 @@ import { useAppDispatch, useAppSelector } from '@/app/hook'
 import ProductCard from '@/features/products/components/ProductCard'
 import { fetchProducts } from '@/features/products/productsSlice'
 import { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 
 export default function ProductDetails() {
 

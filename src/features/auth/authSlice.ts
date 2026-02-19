@@ -6,7 +6,7 @@ import type { User } from './types'
 const initialState: AuthState = {
   currentUser: JSON.parse(localStorage.getItem("currentUser") || "null"),
   users: JSON.parse(localStorage.getItem("users") || "[]"),
-  error : null
+  error: null
 }
 
 const authSlice = createSlice({
@@ -19,12 +19,15 @@ const authSlice = createSlice({
     },
 
     register: (state, action: PayloadAction<User>) => {
+
+      state.error = null 
+
       const exists = state.users.find(
         user => user.email === action.payload.email
       )
 
       if (exists) {
-        alert('email already registered')
+        state.error = 'This Email Already Exist'
         return
       }
 
@@ -33,11 +36,18 @@ const authSlice = createSlice({
 
       localStorage.setItem("users", JSON.stringify(state.users))
       localStorage.setItem("currentUser", JSON.stringify(action.payload))
-
     },
 
+
     login: (state, action: PayloadAction<{ email: string, password: string }>) => {
-      const user = state.users.find((user: User) => user.email === action.payload.email && user.password === action.payload.password)
+
+      state.error = null
+
+      const user = state.users.find(
+        user =>
+          user.email === action.payload.email &&
+          user.password === action.payload.password
+      )
 
       if (!user) {
         state.error = 'Email Or Password Invalid'
@@ -47,6 +57,7 @@ const authSlice = createSlice({
       state.currentUser = user
       localStorage.setItem("currentUser", JSON.stringify(user))
     },
+
 
   },
 })

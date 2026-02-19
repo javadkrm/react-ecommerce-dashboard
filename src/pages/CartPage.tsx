@@ -2,6 +2,7 @@ import { useAppDispatch, useAppSelector } from '@/app/hook'
 import { logout } from '@/features/auth/authSlice'
 import { decreaseQuantity, increaseQuantity, removeFromCart } from '@/features/cart/cartSlice'
 import type { CartItem } from '@/features/cart/types'
+import toast from 'react-hot-toast'
 
 export default function CartPage() {
 
@@ -56,7 +57,6 @@ export default function CartPage() {
                                 e.currentTarget.style.transform = 'translateY(0)';
                                 e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
                             }}>
-                            {/* Product Image */}
                             <img
                                 src={cart.image}
                                 alt={cart.title}
@@ -127,7 +127,10 @@ export default function CartPage() {
                                     </button>
                                     <button
                                         style={{ backgroundColor: 'red' }}
-                                        onClick={() => { dispatch(removeFromCart({ userId: user!.id, productId: cart.id })) }}
+                                        onClick={() => { 
+                                            dispatch(removeFromCart({ userId: user!.id, productId: cart.id }))
+                                            toast.success(`Cart Removed Successfully ✅`)
+                                         }}
                                     >
                                         Remove
                                     </button>

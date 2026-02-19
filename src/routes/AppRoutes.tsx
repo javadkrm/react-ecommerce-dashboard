@@ -11,7 +11,7 @@ import DashboardPrivateRoute from "./DashboardPrivateRoute"
 export default function AppRoutes() {
   return (
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<ProductDetails />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/products" element={<ProductDetails />} />

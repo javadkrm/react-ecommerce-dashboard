@@ -1,13 +1,31 @@
-import { useAppDispatch } from '@/app/hook'
+import { useEffect } from 'react'
+import { useAppDispatch, useAppSelector } from '@/app/hook'
 import { register } from '@/features/auth/authSlice'
 import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 
 export default function Register() {
 
-  const dispatch = useAppDispatch()
+  const { currentUser, error } = useAppSelector(state => state.auth)
 
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (currentUser) {
+      toast.success(`Wlcome ${currentUser.name}`)
+      navigate("/cart")
+    }
+  }, [currentUser])
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error)
+    }
+  }, [error])
+
+
+  const dispatch = useAppDispatch()
 
   const [formData, setFormData] = useState({
     name: '',
@@ -15,7 +33,7 @@ export default function Register() {
     password: ''
   })
 
-  const [error, setError] = useState<string>('')
+  const [ValidateError, setValidateError] = useState<string>('')
 
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -40,12 +58,22 @@ export default function Register() {
     return null
   }
 
-  const submitHandler = (e: React.SubmitEvent<HTMLFormElement>) => {
+  const clearInputs = () => {
+
+    setFormData({
+      name: '',
+      email: '',
+      password: ''
+    })
+  }
+
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
     const validation = validate()
 
     if (validation) {
-      setError(validation)
+      setValidateError(validation)
       return
     }
 
@@ -57,8 +85,9 @@ export default function Register() {
       role: 'user',
     }))
 
-    navigate('/cart')
+    clearInputs()
   }
+
 
   return (
     <div style={{
@@ -99,7 +128,7 @@ export default function Register() {
         </div>
 
         {/* Error Message */}
-        {error && (
+        {ValidateError && (
           <div style={{
             backgroundColor: '#f8d7da',
             color: '#721c24',
@@ -110,7 +139,7 @@ export default function Register() {
             fontWeight: '500',
             border: '1px solid #f5c6cb'
           }}>
-            ⚠ {error}
+            ⚠ {ValidateError}
           </div>
         )}
 

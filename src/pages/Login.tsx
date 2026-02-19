@@ -1,13 +1,28 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '@/app/hook'
 import { login } from '@/features/auth/authSlice'
 import { useNavigate } from 'react-router-dom'
+import toast from 'react-hot-toast'
 
 export default function Login() {
 
   const { currentUser, error } = useAppSelector((state) => state.auth)
 
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (currentUser) {
+      toast.success("Login successful!")
+      navigate("/cart")
+    }
+  }, [currentUser])
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error)
+    }
+  }, [error])
+
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -21,11 +36,19 @@ export default function Login() {
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault()
+
     dispatch(login({ email, password }))
-    navigate('/cart')
+
+    // if (currentUser) {
+    //   toast.success('Login successful! Redirecting to cart...')
+    //   navigate('/cart')
+    // } else {
+    //   toast.error('Email Or Password Invalid')
+    // }
+
     clearInputs()
   }
-  
+
   return (
     <div style={{
       minHeight: '100vh',
@@ -74,7 +97,7 @@ export default function Login() {
             ✓ Welcome back, {currentUser.email}!
           </div>
         )}
-        {error && <p style={{ color: 'red', textAlign: 'center', fontWeight: 'bold', marginBottom: '5px' }}>{error}</p>}
+        {/* {error && <p style={{ color: 'red', textAlign: 'center', fontWeight: 'bold', marginBottom: '5px' }}>{error}</p>} */}
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <div>
             <label style={{

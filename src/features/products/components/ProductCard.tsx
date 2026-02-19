@@ -4,6 +4,7 @@ import { addToCart } from '@/features/cart/cartSlice'
 import { useAppDispatch, useAppSelector } from '@/app/hook'
 import type { CartItem } from '@/features/cart/types'
 import { useNavigate } from 'react-router-dom'
+import toast from 'react-hot-toast'
 
 interface ProductCardProps {
     product: Product
@@ -19,11 +20,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     const handleAddToCart = () => {
         if (user) {
             dispatch(addToCart({ userId: user.id, product: product as CartItem }))
-             alert("Added to cart ✅")
+             toast.success('Added to cart ✅')
 
         } else {
-            alert("Please login to add items to your cart.")
-            navigate('/login')
+            toast.error("Please login to add items to your cart.")
+            // navigate('/login')
         }
     }
 
@@ -134,8 +135,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                         ${product.price.toFixed(2)}
                     </p>
                 </div>
-
-                {/* Button */}
                 <button
                     onClick={handleAddToCart}
                     style={{
