@@ -1,4 +1,5 @@
 import { useAppSelector } from "@/app/hook"
+import toast from "react-hot-toast"
 import { Navigate } from "react-router-dom"
 
 interface Props {
@@ -9,7 +10,7 @@ export default function DashboardPrivateRoute({ children }: Props) {
     const user = useAppSelector(state => state.auth.currentUser)
 
     if (user?.role !== 'admin') {
-        alert('You Can Not Access To This Page')
+        toast.error('You Can Not Access To This Page')
         return <Navigate to='/' replace />
     }
 
