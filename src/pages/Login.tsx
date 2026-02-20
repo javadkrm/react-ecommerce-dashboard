@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '@/app/hook'
-import { login } from '@/features/auth/authSlice'
+import { loginThunk } from '@/features/auth/authSlice'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
@@ -34,17 +34,20 @@ export default function Login() {
     setPassword('')
   }
 
-  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    dispatch(login({ email, password }))
+    try {
+      await dispatch(loginThunk({ email, password })).unwrap()
 
-    // if (currentUser) {
-    //   toast.success('Login successful! Redirecting to cart...')
-    //   navigate('/cart')
-    // } else {
-    //   toast.error('Email Or Password Invalid')
-    // }
+      toast.success('Login SuccessFull')
+      navigate('/cart')
+
+    } catch (error: any) {
+
+      toast.error(error)
+
+    }
 
     clearInputs()
   }

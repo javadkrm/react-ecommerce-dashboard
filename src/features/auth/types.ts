@@ -11,5 +11,6 @@ export interface User {
 export interface AuthState {
   currentUser: User | null
   users: User[]
+  isLoading: boolean
   error: string | null
 }
