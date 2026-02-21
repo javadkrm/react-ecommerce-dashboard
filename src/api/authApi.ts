@@ -17,3 +17,22 @@ export const loginApi = async (email: string, password: string) => {
 
     return user
 }
+
+export const registerApi = async (userData: User) => {
+    await delay(800)
+
+    const users: User[] = JSON.parse(localStorage.getItem('users') || '[]')
+
+    const isExist = users.find(u => u.email === userData.email)
+
+    if (isExist) {
+        throw new Error("Email already exists")
+    }
+
+    users.push(userData)
+
+    localStorage.setItem('currentUser', JSON.stringify(userData))
+    localStorage.setItem('users', JSON.stringify(users))
+
+    return userData
+}

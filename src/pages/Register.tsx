@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '@/app/hook'
-import { register } from '@/features/auth/authSlice'
+import { registerThunk } from '@/features/auth/authSlice'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
@@ -13,7 +13,7 @@ export default function Register() {
 
   useEffect(() => {
     if (currentUser) {
-      toast.success(`Wlcome ${currentUser.name}`)
+      toast.success(`Welcome ${currentUser.name}`)
       navigate("/cart")
     }
   }, [currentUser])
@@ -67,7 +67,7 @@ export default function Register() {
     })
   }
 
-  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     const validation = validate()
@@ -77,13 +77,23 @@ export default function Register() {
       return
     }
 
-    dispatch(register({
-      id: Date.now(),
-      name: formData.name,
-      email: formData.email,
-      password: formData.password,
-      role: 'user',
-    }))
+    try {
+      await dispatch(registerThunk({
+        id: Date.now(),
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        role: 'user',
+      })).unwrap()
+
+      toast.success('Account Created SuccessFully')
+      navigate('/')
+
+    } catch (error: any) {
+
+      toast.error(error)
+
+    }
 
     clearInputs()
   }

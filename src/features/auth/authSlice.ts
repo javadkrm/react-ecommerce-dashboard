@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
 import type { AuthState } from './types'
-import { loginApi } from '@/api/authApi'
+import { loginApi, registerApi } from '@/api/authApi'
 import type { User } from './types'
 
 export const loginThunk = createAsyncThunk<
@@ -20,6 +20,22 @@ export const loginThunk = createAsyncThunk<
 )
 
 
+export const registerThunk = createAsyncThunk<
+  User,
+  User,
+  { rejectValue: string }
+>(
+  'auth/register',
+  async (data, { rejectWithValue }) => {
+    try {
+      return await registerApi(data)
+    } catch (error: any) {
+      return rejectWithValue(error.message)
+    }
+  }
+)
+
+
 const initialState: AuthState = {
   currentUser: JSON.parse(localStorage.getItem("currentUser") || "null"),
   users: JSON.parse(localStorage.getItem("users") || "[]"),
@@ -34,26 +50,6 @@ const authSlice = createSlice({
     logout: state => {
       state.currentUser = null,
         localStorage.removeItem("currentUser")
-    },
-
-    register: (state, action: PayloadAction<User>) => {
-
-      state.error = null
-
-      const exists = state.users.find(
-        user => user.email === action.payload.email
-      )
-
-      if (exists) {
-        state.error = 'This Email Already Exist'
-        return
-      }
-
-      state.users.push(action.payload)
-      state.currentUser = action.payload
-
-      localStorage.setItem("users", JSON.stringify(state.users))
-      localStorage.setItem("currentUser", JSON.stringify(action.payload))
     },
   },
 
@@ -76,8 +72,24 @@ const authSlice = createSlice({
         state.isLoading = false
         state.error = action.payload || 'login failed'
       })
+
+      .addCase(registerThunk.pending, state => {
+        state.isLoading = true
+        state.error = null
+      })
+
+      .addCase(registerThunk.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.currentUser = action.payload
+        state.error = null
+      })
+
+      .addCase(registerThunk.rejected, (state, action) => {
+        state.isLoading = false
+        state.error = action.payload || 'Register Failed'
+      })
   }
 })
 
-export const { register, logout } = authSlice.actions
+export const { logout } = authSlice.actions
 export default authSlice.reducer
