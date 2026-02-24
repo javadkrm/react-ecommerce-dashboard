@@ -14,7 +14,7 @@ export default function Register() {
   useEffect(() => {
     if (currentUser) {
       toast.success(`Welcome ${currentUser.name}`)
-      navigate("/cart")
+      navigate("/")
     }
   }, [currentUser])
 
@@ -85,9 +85,6 @@ export default function Register() {
         password: formData.password,
         role: 'user',
       })).unwrap()
-
-      toast.success('Account Created SuccessFully')
-      navigate('/')
 
     } catch (error: any) {
 

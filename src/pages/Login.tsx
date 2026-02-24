@@ -12,8 +12,8 @@ export default function Login() {
 
   useEffect(() => {
     if (currentUser) {
-      toast.success("Login successful!")
-      navigate("/cart")
+      toast.success(`Welcome Back ${currentUser.name}`)
+      navigate("/")
     }
   }, [currentUser])
 
@@ -39,10 +39,7 @@ export default function Login() {
 
     try {
       await dispatch(loginThunk({ email, password })).unwrap()
-
-      toast.success('Login SuccessFull')
-      navigate('/cart')
-
+      
     } catch (error: any) {
 
       toast.error(error)
